@@ -1,0 +1,44 @@
+Task 1
+
+In this task, I used Selenide because it is a readable and effective tool for test cases. In a real scenario, I would, of course, use the Page Object Model. In this case, I created a test case that finds the element, clicks delete, and then uses Selenide's built-in assertions to validate that this element no longer exists in the DOM. For validating multiple deletions, I would use a DataProvider for this test case, where I would pass an array of strings that should be deleted and checked.
+
+Task 2
+
+@BeforeMethod
+public void setup(){
+        open("Some Url");
+}
+
+@Test(dataProvider = "deleteDataProvider")
+public void deleteTest(String name){
+        SelenideElement ElementToDelete = $x(String.format("//*[text()=\"%s\"]", name))
+                .$x("*/[text()=\"del\"]");
+        ElementToDelete.click();
+        ElementToDelete.shouldNotBe(exist);
+}
+
+Task 3
+
+function WaitElement(cssSelector) {
+    return new Promise((resolve, reject) => {
+        const checkElement = () => {
+            const element = document.querySelector(cssSelector);
+            if (element) {
+                resolve(element);
+                return;
+            }
+            setTimeout(checkElement, 100);
+        };
+
+        checkElement();
+    });
+}
+
+// Usage example:
+WaitElement('.my-element-class')
+    .then(element => {
+        console.log('Element found:', element);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
